@@ -1,0 +1,200 @@
+@import "tailwindcss";
+
+:root {
+  --pink-dark: #b8005c;
+  --pink-light: #ff2e93;
+  --pink-mid: #e60073;
+  --deep-space: #070309;
+  --dark-glass: rgba(18, 10, 20, 0.9);
+  --border-light: rgba(255, 46, 147, 0.28);
+  --text-primary: #f5edf3;
+  --text-secondary: #a896a5;
+  --font-main: 'Cairo', sans-serif;
+  --font-cyber: 'Orbitron', sans-serif;
+  --ok: #35d07f;
+  --bad: #ff4d6d;
+  --card-bg: rgba(24, 12, 26, 0.58);
+}
+
+* {
+  box-sizing: border-box;
+  -webkit-font-smoothing: antialiased;
+  -webkit-tap-highlight-color: transparent;
+}
+
+html, body {
+  height: 100%;
+}
+
+body {
+  background: var(--deep-space);
+  color: var(--text-primary);
+  font-family: var(--font-main);
+  width: 100%;
+  min-height: 100vh;
+  overflow-x: hidden;
+  overflow-y: auto;
+}
+
+.font-cyber {
+  font-family: var(--font-cyber);
+}
+
+/* Rising pink background particles */
+.bg-circles {
+  position: fixed;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 100%;
+  overflow: hidden;
+  z-index: 0;
+  pointer-events: none;
+}
+
+.bg-circles div {
+  position: absolute;
+  width: 20px;
+  height: 20px;
+  background: rgba(255, 46, 147, 0.11);
+  animation: circle-rise 25s linear infinite;
+  bottom: -150px;
+  border-radius: 50%;
+}
+
+.bg-circles div:nth-child(1) {
+  left: 25%;
+  width: 80px;
+  height: 80px;
+  animation-delay: 0s;
+}
+
+.bg-circles div:nth-child(2) {
+  left: 10%;
+  width: 20px;
+  height: 20px;
+  animation-delay: 2s;
+  animation-duration: 12s;
+}
+
+.bg-circles div:nth-child(3) {
+  left: 70%;
+  width: 20px;
+  height: 20px;
+  animation-delay: 4s;
+}
+
+.bg-circles div:nth-child(4) {
+  left: 45%;
+  width: 45px;
+  height: 45px;
+  animation-delay: 7s;
+  animation-duration: 18s;
+}
+
+@keyframes circle-rise {
+  0% {
+    transform: translateY(0) rotate(0deg);
+    opacity: 1;
+    border-radius: 0;
+  }
+  100% {
+    transform: translateY(-1000px) rotate(720deg);
+    opacity: 0;
+    border-radius: 50%;
+  }
+}
+
+/* Morphing hexagon emblem */
+.profile-hex {
+  width: 100%;
+  height: 100%;
+  background: #000;
+  border: 2px solid var(--pink-light);
+  border-radius: 30% 70% 70% 30% / 30% 30% 70% 70%;
+  overflow: hidden;
+  animation: astro-morph 8s ease-in-out infinite;
+  box-shadow: 0 10px 30px rgba(255, 46, 147, 0.35);
+}
+
+@keyframes astro-morph {
+  0%, 100% {
+    border-radius: 30% 70% 70% 30% / 30% 30% 70% 70%;
+  }
+  50% {
+    border-radius: 70% 30% 30% 70% / 70% 70% 30% 35%;
+  }
+}
+
+/* Lightning sweep button effect */
+.lightning-btn {
+  position: relative;
+  overflow: hidden;
+}
+
+.lightning-btn::before {
+  content: '';
+  position: absolute;
+  top: 0;
+  left: -100%;
+  width: 40%;
+  height: 100%;
+  background: linear-gradient(90deg, transparent, rgba(255, 112, 184, 0.38), transparent);
+  transform: skewX(-25deg);
+  animation: lightning-strike 3s infinite;
+  z-index: 5;
+  pointer-events: none;
+}
+
+@keyframes lightning-strike {
+  0% { left: -100%; }
+  15% { left: 200%; }
+  100% { left: 200%; }
+}
+
+/* Splash pulse animation */
+@keyframes splash-pulse {
+  0%, 100% { transform: scale(1); }
+  50% { transform: scale(1.08); }
+}
+
+.animate-splash-pulse {
+  animation: splash-pulse 1.8s ease-in-out infinite;
+}
+
+/* Coordinate grid inside big multiplier box */
+.big-box-grid::before {
+  content: "";
+  position: absolute;
+  inset: 0;
+  background-image:
+    linear-gradient(rgba(255, 46, 147, 0.08) 1px, transparent 1px),
+    linear-gradient(90deg, rgba(255, 46, 147, 0.08) 1px, transparent 1px);
+  background-size: 22px 22px;
+  opacity: 0.6;
+  pointer-events: none;
+}
+
+@keyframes fadeSlideIn {
+  from {
+    opacity: 0;
+    transform: translateY(10px);
+  }
+  to {
+    opacity: 1;
+    transform: translateY(0);
+  }
+}
+
+.view-enter {
+  animation: fadeSlideIn 0.35s cubic-bezier(0.16, 1, 0.3, 1);
+}
+
+@media (prefers-reduced-motion: reduce) {
+  .bg-circles div,
+  .profile-hex,
+  .lightning-btn::before,
+  .animate-splash-pulse {
+    animation: none !important;
+  }
+}
